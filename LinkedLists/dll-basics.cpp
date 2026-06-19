@@ -118,6 +118,22 @@ Node *deleteAtPos(Node *head, int k)
 
   return head;
 }
+
+// delete a given node
+void deleteNode(Node *node)
+{
+  // edge case
+  if (!node || !node->next)
+    return;
+
+  Node *temp = node->next;
+  node->data = temp->data;
+  node->next = temp->next;
+  if (temp->next)
+    temp->next->prev = node;
+
+  delete (temp);
+}
 // print the dll
 void printDll(Node *head)
 {
