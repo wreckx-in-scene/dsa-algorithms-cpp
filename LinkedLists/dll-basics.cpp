@@ -43,6 +43,78 @@ Node *arrToDll(vector<int> &arr)
   return head;
 }
 
+// inserting a node at head
+Node *insertAtHead(Node *head, int x)
+{
+  Node *newNode = new Node(x);
+  if (!head)
+    return newNode;
+  newNode->next = head;
+  newNode->prev = nullptr;
+  head->prev = newNode;
+  head = newNode;
+  return head;
+}
+
+// inserting a node in the end
+Node *insertAtTail(Node *head, int x)
+{
+  Node *newNode = new Node(x);
+
+  if (!head)
+    return newNode;
+  Node *temp = head;
+  while (temp->next)
+  {
+    temp = temp->next;
+  }
+
+  temp->next = newNode;
+  newNode->prev = temp;
+  newNode->next = nullptr;
+
+  return head;
+}
+
+// inserting a node at kth pos
+Node *insertAtPos(Node *head, int x, int k)
+{
+  if (k <= 0)
+    return head;
+
+  // Insert at head
+  if (k == 1)
+    return insertAtHead(head, x);
+
+  Node *temp = head;
+  int cnt = 1;
+
+  // Reach the (k-1)th node
+  while (temp && cnt < k - 1)
+  {
+    temp = temp->next;
+    cnt++;
+  }
+
+  // Invalid position
+  if (!temp)
+    return head;
+
+  // If inserting at the end
+  if (temp->next == nullptr)
+    return insertAtTail(head, x);
+
+  Node *newNode = new Node(x);
+
+  newNode->next = temp->next;
+  newNode->prev = temp;
+
+  temp->next->prev = newNode;
+  temp->next = newNode;
+
+  return head;
+}
+
 // delete head
 Node *deleteHead(Node *head)
 {
