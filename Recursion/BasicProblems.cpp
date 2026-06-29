@@ -46,10 +46,32 @@ int fact(int n)
   return n * fact(n - 1);
 }
 
+// reverse helper
+void reverseHelper(int left, int right, vector<int> &nums)
+{
+  // base case
+  if (left >= right)
+    return;
+  swap(nums[left], nums[right]);
+  reverseHelper(left + 1, right - 1, nums);
+}
+
+// reverse the array using recursion
+void reverse(vector<int> &nums)
+{
+  int n = nums.size();
+  int l = 0, r = n - 1;
+
+  // calling the helper function
+  reverseHelper(l, r, nums);
+}
+
 int main()
 {
   int n;
   cin >> n;
+
+  vector<int> nums = {1, 2, 3, 4, 5};
 
   // printName(n);
   // printN(n);
